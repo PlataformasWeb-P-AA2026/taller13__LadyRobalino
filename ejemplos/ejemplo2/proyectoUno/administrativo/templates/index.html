@@ -1,53 +1,53 @@
 {% extends "master.html" %}
 
 {% block title %}
-  Listado de Estudiantes
+Listado de Edificios y Departamentos
 {% endblock %}
 
 {% block content %}
-<h3>Número de estudiantes {{ numero_estudiantes }}</h3>
+<h3>Edificios: {{ numero_edificios }}</h3>
 
-<table id="tabla_datos">
-
+<table id="tabla_edificios">
   <thead>
     <tr>
-      <th>Estudiante</th>
-      <th>Cedula</th>
-      <th>Correo</th>
-      <th>Numeros Telefónico </th>
-      <th>Opciones</th>
+      <th>Nombre</th>
+      <th>Dirección</th>
+      <th>Ciudad</th>
+      <th>Tipo</th>
     </tr>
   </thead>
-
-  {% for e in estudiantes %}
-  <tr>
-    <td> {{e.nombre}} {{e.apellido}}</td>
-    <td> {{e.cedula}}</td>
-    <td> {{e.correo}}</td>
-    <td>
-      <ul>
-        {% for t in e.numeros_telefonicos.all %}
-          <li>
-            <span>{{t.telefono}} - {{t.tipo}} - [<a href="{% url 'editar_numero_telefonico' t.id %}">editar</a>] </span>
-          </li>
-        {% endfor %}
-      </ul>
-        [<a href="{% url 'crear_numero_telefonico_estudiante' e.id%}">+Teléfono</a>]
-    </td>
-    <td> <a href="{% url 'obtener_estudiante' e.id %}">ver</a> <br>
-      <a href="{% url 'editar_estudiante' e.id %}">editar</a> <br>
-      <a href="{% url 'eliminar_estudiante' e.id %}"
-      onclick="return confirm('¿Está seguro de la eliminación?')" >
-      eliminar</a>
-    </td>
-
-  </tr>
-  {% endfor %}
+  <tbody>
+    {% for edificio in edificios %}
+    <tr>
+      <td>{{ edificio.nombre }}</td>
+      <td>{{ edificio.direccion }}</td>
+      <td>{{ edificio.ciudad }}</td>
+      <td>{{ edificio.tipo }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
 </table>
 
-<script type="text/javascript">
-  $(document).ready( function () {
-    $('#tabla_datos').DataTable();
-  });
-</script>
+<h3>Departamentos: {{ numero_departamentos }}</h3>
+
+<table id="tabla_departamentos">
+  <thead>
+    <tr>
+      <th>Propietario</th>
+      <th>Costo</th>
+      <th>Cuartos</th>
+      <th>Edificio</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for departamento in departamentos %}
+    <tr>
+      <td>{{ departamento.nombre_propietario }}</td>
+      <td>{{ departamento.costo_departamento }}</td>
+      <td>{{ departamento.numero_cuartos }}</td>
+      <td>{{ departamento.edificio }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endblock %}

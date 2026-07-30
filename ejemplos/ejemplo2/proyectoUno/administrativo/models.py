@@ -1,24 +1,26 @@
 from django.db import models
 
-# Create your models here.
 
-class Estudiante(models.Model):
-    nombre = models.CharField(max_length=30)
-    apellido = models.CharField(max_length=30)
-    cedula = models.CharField(max_length=30, unique=True)
-    correo = models.EmailField()
+class Edificio(models.Model):
+    TIPOS = [
+        ("residencial", "Residencial"),
+        ("comercial", "Comercial"),
+    ]
 
-    def __str__(self):
-        return "%s %s %s %s" % (self.nombre,
-                self.apellido,
-                self.cedula,
-                self.correo)
-
-class NumeroTelefonico(models.Model):
-    telefono = models.CharField(max_length=100)
-    tipo = models.CharField(max_length=100)
-    estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE,
-            related_name="numeros_telefonicos")
+    nombre = models.CharField(max_length=100)
+    direccion = models.CharField(max_length=150)
+    ciudad = models.CharField(max_length=100)
+    tipo = models.CharField(max_length=20, choices=TIPOS)
 
     def __str__(self):
-        return "%s %s" % (self.telefono, self.tipo)
+        return self.nombre
+
+
+class Departamento(models.Model):
+    nombre_propietario = models.CharField(max_length=150)
+    costo_departamento = models.DecimalField(max_digits=10, decimal_places=2)
+    numero_cuartos = models.PositiveIntegerField()
+    edificio = models.ForeignKey(Edificio, on_delete=models.CASCADE, related_name="departamentos")
+
+    def __str__(self):
+        return "%s - %s" % (self.nombre_propietario, self.edificio)

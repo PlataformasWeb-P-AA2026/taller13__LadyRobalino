@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Edificios</title>
+    <style>
+      body { font-family: Arial, sans-serif; background: #f4f7fb; margin: 0; padding: 32px; color: #1b2430; }
+      header, .card { background: white; border-radius: 16px; box-shadow: 0 12px 35px rgba(17, 24, 39, 0.08); }
+      header { padding: 24px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+      a { color: #0b5cab; text-decoration: none; }
+      table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+      th, td { padding: 14px; border-bottom: 1px solid #e5e7eb; text-align: left; }
+      th { background: #0b5cab; color: white; }
+      .actions a { margin-right: 12px; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>Edificios</h1>
+        <p>Total: {{ numero }}</p>
+      </div>
+      <div class="actions">
+        <a href="{{ url_for('crear_edificio') }}">Crear edificio</a>
+        <a href="{{ url_for('los_departamentos') }}">Ver departamentos</a>
+      </div>
+    </header>
+
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Ciudad</th>
+            <th>Tipo</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for edificio in datos %}
+          <tr>
+            <td>{{ edificio.nombre }}</td>
+            <td>{{ edificio.direccion }}</td>
+            <td>{{ edificio.ciudad }}</td>
+            <td>{{ edificio.tipo }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
